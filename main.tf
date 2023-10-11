@@ -1,7 +1,7 @@
-#resource "aws_vpc" "vpc-1" {
-#  cidr_block = var.cidr[0]
-#  tags = var.tags
-#}
+//resource "aws_vpc" "vpc-1" {
+//  cidr_block = var.cidr[0]
+//  tags = var.tags
+//}
 
 #resource "aws_subnet" "pub-sub-1" {
 #    cidr_block = var.cidr[1]
@@ -85,16 +85,16 @@ data "aws_ami" "ub" {
     values = ["x86_64"]
   }
 }
-//
-//
-//resource "aws_instance" "shiv" {
-//  ami           = data.aws_ami.ub.id
-//  instance_type = "t2.micro"
-//
-//  tags = {
-//    Name = "Terraform-instance"
-//  }
-//}
+
+
+resource "aws_instance" "shiv" {
+  ami           = data.aws_ami.ub.id
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "Terraform-instance"
+  }
+}
 
 
 
@@ -106,12 +106,14 @@ data "aws_ami" "ub" {
 
 
 
-resource "tls_private_key" "my-key" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
+//resource "tls_private_key" "my-key" {
+//  algorithm = "RSA"
+//  rsa_bits  = 4096
+//}
+//
+//
+//data "tls_public_key" "private_key_pem-example" {
+//  private_key_pem = tls_private_key.my-key.private_key_pem
+//}
 
 
-data "tls_public_key" "private_key_pem-example" {
-  private_key_pem = tls_private_key.my-key.private_key_pem
-}

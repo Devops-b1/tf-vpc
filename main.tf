@@ -89,10 +89,13 @@ data "aws_ami" "ub" {
 
 resource "aws_instance" "shiv" {
   ami           = data.aws_ami.ub.id
-  instance_type = "t2.micro"
+  #instance_type = "t2.micro"
+  instance_type = var.instance_type_list[0]
+  #instance_type = var.instance_type_map["stuti"]
+  count = 5
 
   tags = {
-    Name = "Terraform-instance"
+    Name = "Terraform-instance-${count.index}"
   }
 }
 

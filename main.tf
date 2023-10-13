@@ -87,15 +87,28 @@ data "aws_ami" "ub" {
 }
 
 
+# Availability Zones Datasource
+data "aws_availability_zones" "xyz" {
+  filter {
+    name   = "opt-in-status"
+    values = ["opt-in-not-required"]
+  }
+}
+
+
 resource "aws_instance" "shiv" {
   ami           = data.aws_ami.ub.id
   #instance_type = "t2.micro"
   instance_type = var.instance_type_list[0]
   #instance_type = var.instance_type_map["stuti"]
-  count = 5
+  #count = 5
+  for_each = toset (data.aws_availability_zones.xyz.names)
+  availability_zone = each.key
+
 
   tags = {
-    Name = "Terraform-instance-${count.index}"
+
+    Name = "Terraform-instance-${each.key}"
   }
 }
 
